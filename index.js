@@ -8,55 +8,51 @@ require("dotenv").config({ path: ".env" });
 
 // Configuración para la conexión del servidor
 mongoose.connect(
-  process.env.BBDD,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: true,
-    useCreateIndex: true,
-  },
-  (err, _) => {
-    if (err) {
-      console.log("Error de conexión");
-    } else {
-      server();
+    process.env.DDBB,
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+        useCreateIndex: true,
+    },
+    (err, _) => {
+        if (err) {
+            console.log("Error de conexión");
+        } else {
+            server();
+        }
     }
-  }
 );
 
 // Función para realizar la conexión con Apollo Server
 function server() {
-  const ServerApollo = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: ({ req }) => {
+    const ServerApollo = new ApolloServer({
+        typeDefs,
+        resolvers,
+        context: ({ req }) => {
+            const token = req.headers.authorization;
+            if (token) {
+                try {
+                    const user = jwt.verify(
+                        token.replace("Bearer ", ""),
+                        process.env.SECRET_KEY
+                    );
 
-      const token = req.headers.authorization;
-       if(token) {
+                    return {
+                        user,
+                    };
+                } catch (error) {
+                    console.log("#### ERROR ####");
+                    console.log(error);
+                    throw new Error("Token no válido");
+                }
+            }
+        },
+    });
 
-         try {
-          
-           const user = jwt.verify(
-             token.replace("Bearer ", ""),
-             process.env.SECRET_KEY
-           );
-
-           return {
-             user
-           }
-
-         } catch (error) {
-           console.log("#### ERROR ####");
-           console.log(error);
-           throw new Error("Token no válido");
-         }
-       }
-    }
-  });
-
-  ServerApollo.listen().then(({ url }) => {
-    console.log("#############################################");
-    console.log(`Servidor en el puerto ${url}`);
-    console.log("#############################################");
-  });
+    ServerApollo.listen().then(({ url }) => {
+        console.log("#############################################");
+        console.log(`Servidor en el puerto ${url}`);
+        console.log("#############################################");
+    });
 }
