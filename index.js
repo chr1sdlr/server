@@ -51,8 +51,6 @@ function server() {
     });
 
     ServerApollo.listen().then(({ url }) => {
-        console.log("#############################################");
-        console.log(`Servidor en el puerto ${url}`);
-        console.log("#############################################");
+        console.log(`Server on port ${url}`);
     });
 }
