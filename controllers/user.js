@@ -47,6 +47,7 @@ async function register(input) {
     }
 }
 
+// Query para obtener datos del usuario
 async function getUser(id, username) {
     let user = null;
     if (id) user = await User.findById(id);
@@ -54,6 +55,14 @@ async function getUser(id, username) {
     if (!user) throw new Error("Este usuario no existe :c");
 
     return user;
+}
+
+// Query para buscar usuarios en el buscador
+async function searchUser(search) {
+    const users = await User.find({
+        name: { $regex: search, $options: "i" },
+    });
+    return users;
 }
 
 async function updateAvatar(file, ctx) {
@@ -129,6 +138,7 @@ module.exports = {
     register,
     createToken,
     getUser,
+    searchUser,
     updateAvatar,
     deleteAvatar,
     updateUser,

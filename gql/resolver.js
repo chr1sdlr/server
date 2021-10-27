@@ -5,6 +5,7 @@ const resolvers = {
     Query: {
         // Para el usuario
         getUser: (_, { id, username }) => userController.getUser(id, username),
+        searchUser: (_, { search }) => userController.searchUser(search),
     },
     // Esta función se ejecuta cada vez que se hace cierta petición
     Mutation: {

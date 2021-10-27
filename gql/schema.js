@@ -48,10 +48,11 @@ const typeDef = gql`
         description: String
     }
 
-    # Querys que se van a realizar en GraphQL
+    # Queries que se van a realizar en GraphQL
     type Query {
         # Para el usuario:
-        getUser(id: ID, username: String): User
+        getUser(id: ID, username: String): User # Devuelve solo un usuario
+        searchUser(search: String): [User] # Devuelve un array o lista de usuarios
     }
 
     type Mutation {
