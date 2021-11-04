@@ -53,6 +53,8 @@ const typeDef = gql`
         # Para el usuario:
         getUser(id: ID, username: String): User # Devuelve solo un usuario
         searchUser(search: String): [User] # Devuelve un array o lista de usuarios
+        # Para seguir usuarios (follow)
+        isFollower(username: String!): Boolean # Si sigue al user: True, sino: False
     }
 
     type Mutation {
@@ -65,6 +67,9 @@ const typeDef = gql`
         # Para eliminar el avatar actual del usuario:
         deleteAvatar: Boolean # Si ha eliminado correctamente devuelve TRUE, de lo contrario FALSE
         updateUser(input: UserUpdateInput): Boolean
+        # Para los follows (seguir usuarios)
+        follower(username: String!): Boolean # Devuelve true si lo sigue o false si no lo hace.
+        unFollow(username: String!): Boolean
     }
 `;
 
