@@ -10,6 +10,9 @@ const resolvers = {
         // Para los followers
         isFollower: (_, { username }, ctx) =>
             followerController.isFollower(username, ctx),
+        // Para obtener los dollowers
+        getFollowers: (_, { username }) =>
+            followerController.getFollowers(username),
     },
     // Esta función se ejecuta cada vez que se hace cierta petición
     Mutation: {
