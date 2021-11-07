@@ -7,12 +7,15 @@ const resolvers = {
         // Para el usuario
         getUser: (_, { id, username }) => userController.getUser(id, username),
         searchUser: (_, { search }) => userController.searchUser(search),
-        // Para los followers
+        // Para los followers (saber si sigue a un user o no)
         isFollower: (_, { username }, ctx) =>
             followerController.isFollower(username, ctx),
-        // Para obtener los dollowers
+        // Para obtener los followers
         getFollowers: (_, { username }) =>
             followerController.getFollowers(username),
+        // Para obtener a los que se siguen
+        getFolloweds: (_, { username }) =>
+            followerController.getFolloweds(username),
     },
     // Esta función se ejecuta cada vez que se hace cierta petición
     Mutation: {

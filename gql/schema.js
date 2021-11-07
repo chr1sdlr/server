@@ -57,6 +57,7 @@ const typeDef = gql`
         isFollower(username: String!): Boolean # Si sigue al user: True, sino: False
         # Query para obtener los seguidores del usuario
         getFollowers(username: String!): [User] # Devuelve un array con los usuarios que lo siguen
+        getFolloweds(username: String!): [User] # Para verificar los seguidos
     }
 
     type Mutation {

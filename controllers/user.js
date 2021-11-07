@@ -60,7 +60,7 @@ async function getUser(id, username) {
 // Query para buscar usuarios en el buscador
 async function searchUser(search) {
     const users = await User.find({
-        name: { $regex: search, $options: "i" },
+        username: { $regex: search, $options: "i" },
     });
     return users;
 }
