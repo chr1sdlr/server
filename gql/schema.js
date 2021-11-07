@@ -24,6 +24,19 @@ const typeDef = gql`
         urlAvatar: String
     }
 
+    type Post {
+        status: Boolean
+        urlFile: String
+    }
+
+    type UserPost {
+        id: ID
+        idUser: ID
+        file: String
+        fileType: String
+        createAt: String
+    }
+
     # Input creado para obtener los datos del usuario y poder ejecutar la acción de la petición
     input UserInput {
         name: String! # La exclamación significa que es obligatorio
@@ -58,6 +71,8 @@ const typeDef = gql`
         # Query para obtener los seguidores del usuario
         getFollowers(username: String!): [User] # Devuelve un array con los usuarios que lo siguen
         getFolloweds(username: String!): [User] # Para verificar los seguidos
+        # Query para obterner las publicaciones del usuario
+        getUserPosts(username: String!): [UserPost] # Devuelve un array con las publicaciones
     }
 
     type Mutation {
@@ -73,6 +88,8 @@ const typeDef = gql`
         # Para los follows (seguir usuarios)
         follower(username: String!): Boolean # Devuelve true si lo sigue o false si no lo hace.
         unFollow(username: String!): Boolean
+        # Para las publicaciones:
+        post(file: Upload): Post # Devuelve en objeto de tipo Post
     }
 `;
 

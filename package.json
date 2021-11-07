@@ -15,7 +15,8 @@
     "dotenv": "^8.2.0",
     "fs-capacitor": "^7.0.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.7"
+    "mongoose": "^5.11.7",
+    "uuid": "8.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
