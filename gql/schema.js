@@ -37,6 +37,13 @@ const typeDef = gql`
         createAt: String
     }
 
+    type CommentUser {
+        idPublication: ID
+        idUser: ID
+        userComment: String
+        createAt: String
+    }
+
     # Input creado para obtener los datos del usuario y poder ejecutar la acción de la petición
     input UserInput {
         name: String! # La exclamación significa que es obligatorio
@@ -59,6 +66,12 @@ const typeDef = gql`
         newPassword: String
         webSite: String
         description: String
+    }
+
+    # Input para el comentario del usuario
+    input CommentUserInput {
+        idPublication: ID
+        userComment: String
     }
 
     # Queries que se van a realizar en GraphQL
@@ -90,6 +103,8 @@ const typeDef = gql`
         unFollow(username: String!): Boolean
         # Para las publicaciones:
         post(file: Upload): Post # Devuelve en objeto de tipo Post
+        # Para los comentarios
+        addUserComment(input: CommentUserInput): CommentUser # Del CommentUserInput va a devolver el tipo CommentUser
     }
 `;
 

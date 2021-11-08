@@ -2,6 +2,7 @@ const userController = require("../controllers/user");
 const loginController = require("../controllers/login");
 const followerController = require("../controllers/follower");
 const postController = require("../controllers/post");
+const commentController = require("../controllers/comment");
 
 const resolvers = {
     Query: {
@@ -38,6 +39,9 @@ const resolvers = {
             followerController.unFollow(username, ctx),
         // Para las publicaciones
         post: (_, { file }, ctx) => postController.post(file, ctx),
+        // Para los comentarios
+        addUserComment: (_, { input }, ctx) =>
+            commentController.addUserComment(input, ctx),
     },
 };
 
