@@ -2,6 +2,7 @@ const userController = require("../controllers/user");
 const loginController = require("../controllers/login");
 const followerController = require("../controllers/follower");
 const postController = require("../controllers/post");
+const postDescriptionController = require("../controllers/postDescription");
 const commentController = require("../controllers/comment");
 
 const resolvers = {
@@ -21,6 +22,12 @@ const resolvers = {
         // Para obtener las publicaciones del usuario
         getUserPosts: (_, { username }) =>
             postController.getUserPosts(username),
+        // Para obtener la descripción de la publicación del usuario
+        getPostDescription: (_, { search }) =>
+            postController.getPostDescription(search),
+        // Para obtener los comentarios de la publicación del usuario
+        getPostComments: (_, { idPublication }) =>
+            commentController.getPostComments(idPublication),
     },
     // Esta función se ejecuta cada vez que se hace cierta petición
     Mutation: {
@@ -39,6 +46,9 @@ const resolvers = {
             followerController.unFollow(username, ctx),
         // Para las publicaciones
         post: (_, { file }, ctx) => postController.post(file, ctx),
+        // Para las descripciones de las publicaciones
+        postDescription: (_, { input }, ctx) =>
+            postDescriptionController.addUserDescription(input, ctx),
         // Para los comentarios
         addUserComment: (_, { input }, ctx) =>
             commentController.addUserComment(input, ctx),

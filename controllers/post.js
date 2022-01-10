@@ -1,5 +1,6 @@
 const Post = require("../models/post");
 const User = require("../models/user");
+const PostDescription = require("../models/postDescription");
 const AWSUploadImage = require("../utils/aws-upload-image");
 const { v4: uuidv4 } = require("uuid");
 const { Error } = require("mongoose");
@@ -47,7 +48,20 @@ async function getUserPosts(username) {
     return Posts;
 }
 
+async function getPostDescription(search) {
+    const Description = await PostDescription.find({
+        idPublication: search,
+    });
+
+    if (!Description) {
+        throw new Error("La publicación no ha sido encontrada");
+    }
+
+    return Description;
+}
+
 module.exports = {
     post,
     getUserPosts,
+    getPostDescription,
 };

@@ -39,8 +39,14 @@ const typeDef = gql`
 
     type CommentUser {
         idPublication: ID
-        idUser: ID
+        idUser: User
         userComment: String
+        createAt: String
+    }
+
+    type PostDescription {
+        idPublication: ID
+        description: String
         createAt: String
     }
 
@@ -74,6 +80,12 @@ const typeDef = gql`
         userComment: String
     }
 
+    # Input para la descipción de la publicación
+    input DescriptionUserInput {
+        idPublication: ID
+        description: String!
+    }
+
     # Queries que se van a realizar en GraphQL
     type Query {
         # Para el usuario:
@@ -86,6 +98,10 @@ const typeDef = gql`
         getFolloweds(username: String!): [User] # Para verificar los seguidos
         # Query para obterner las publicaciones del usuario
         getUserPosts(username: String!): [UserPost] # Devuelve un array con las publicaciones
+        # Query para obtener la descripción de la publicación
+        getPostDescription(search: String!): [PostDescription]
+        # Query para obtener lso comentarios de una publicación
+        getPostComments(idPublication: ID!): [CommentUser] # Devuelve un array de comentarios
     }
 
     type Mutation {
@@ -103,6 +119,8 @@ const typeDef = gql`
         unFollow(username: String!): Boolean
         # Para las publicaciones:
         post(file: Upload): Post # Devuelve en objeto de tipo Post
+        # Para la descripción de las publicaciones:
+        postDescription(input: DescriptionUserInput): PostDescription
         # Para los comentarios
         addUserComment(input: CommentUserInput): CommentUser # Del CommentUserInput va a devolver el tipo CommentUser
     }

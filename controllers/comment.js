@@ -19,6 +19,12 @@ function addUserComment(input, ctx) {
     return null;
 }
 
+async function getPostComments(idPublication) {
+    const res = await Comment.find({ idPublication }).populate("idUser");
+    return res;
+}
+
 module.exports = {
     addUserComment,
+    getPostComments,
 };
